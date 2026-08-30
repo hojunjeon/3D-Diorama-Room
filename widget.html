@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:," />
+  <meta name="theme-color" content="#f5eee4" />
+  <title>모아의 방 · Widget</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="widget-body">
+  <main class="widget-app">
+    <header class="widget-top">
+      <div class="widget-brand">
+        <span class="widget-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="m4 10 8-6 8 6v9H4zM9 19v-5h6v5" />
+          </svg>
+        </span>
+        <div><p class="section-kicker">ROOMMATE</p><strong>모아의 방</strong></div>
+      </div>
+      <div class="mini-state" role="status">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="agentState" aria-live="polite">자율 이동</span>
+      </div>
+    </header>
+
+    <div class="widget-profile">
+      <div class="widget-avatar" aria-hidden="true">
+        <svg viewBox="0 0 40 40" focusable="false">
+          <circle cx="20" cy="20" r="17" />
+          <circle cx="15" cy="18" r="1.5" />
+          <circle cx="25" cy="18" r="1.5" />
+          <path d="M15.5 25c1.3 1.4 2.8 2 4.5 2s3.2-.6 4.5-2" />
+        </svg>
+      </div>
+      <div class="widget-profile-copy"><strong>작은 방, 좋은 하루</strong><span>모아가 쉬고 있어요</span></div>
+      <div class="widget-meter-dots" aria-label="에너지 72%, 집중력 64%, 편안함 78%">
+        <span class="meter-dot energy"></span><span class="meter-dot focus"></span><span class="meter-dot comfort"></span>
+      </div>
+    </div>
+
+    <div class="canvas-shell widget-canvas-shell">
+      <button class="world-hotspot calendar-hotspot" id="calendarHotspot" type="button" aria-label="달력 열기">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5.5" width="16" height="15" rx="2" /><path d="M8 3.5v4M16 3.5v4M4 10h16M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" /></svg>
+        <span>일정</span>
+      </button>
+      <button class="world-hotspot budget-hotspot" id="budgetHotspot" type="button" aria-label="소비 예산 열기">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v12H4zM4 10.5h16M7 7.5V5h10v2.5M8 15h3M15 15h2" /></svg>
+        <span>예산</span>
+      </button>
+      <canvas id="world" tabindex="0" aria-label="가구를 선택하고 모아를 움직일 수 있는 아이소메트릭 방"></canvas>
+      <div class="hint" id="hint" role="status" aria-live="polite">가구를 탭하면 사용하고, 빈 바닥을 탭하면 이동해요.</div>
+      <span class="canvas-caption" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M12 5v14M5 12h14" /><circle cx="12" cy="12" r="8.5" /></svg>
+        탭해서 놀기
+      </span>
+    </div>
+
+    <section class="widget-quick" aria-labelledby="widget-actions-title">
+      <div class="widget-section-title"><span id="widget-actions-title">모아의 루틴</span><span>빠른 행동</span></div>
+      <div class="widget-action-grid">
+        <button type="button" data-use="sofa" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12v-2a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v2M4 12h16v5H4zM7 17v2M17 17v2" /></svg><span>쉬기</span></button>
+        <button type="button" data-use="bed" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 14h16v4H4zM6 14v-3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3M12 12h5a3 3 0 0 1 3 2" /></svg><span>낮잠</span></button>
+        <button type="button" data-use="desk" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16v9H4zM7 16v3M17 16v3M3 21h18M8 10h8v4H8z" /></svg><span>집중</span></button>
+      </div>
+    </section>
+
+    <div class="widget-controls" aria-label="위젯 설정">
+      <label class="widget-select"><span>방</span><select id="roomSkin" aria-label="방 분위기 선택"><option value="cloud">구름빛</option><option value="sunset">노을빛</option><option value="mint">민트빛</option></select></label>
+      <label class="widget-select"><span>스타일</span><select id="characterSkin" aria-label="모아의 스타일 선택"><option value="classic">오트밀</option><option value="mint">민트</option><option value="coral">코랄</option></select></label>
+      <label class="switch compact"><span class="switch-text">자동 루틴</span><input id="autoMode" type="checkbox" checked /></label>
+      <label class="switch compact"><span class="switch-text">꾸미기</span><input id="editMode" type="checkbox" /></label>
+    </div>
+
+    <section class="widget-gestures" aria-label="모아의 제스처">
+      <button type="button" data-gesture="wave"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 12V6.5a1.5 1.5 0 0 1 3 0V11M11 10V5a1.5 1.5 0 0 1 3 0v6M14 10V6a1.5 1.5 0 0 1 3 0v6M17 12v-1a1.5 1.5 0 0 1 3 0v3.5A6.5 6.5 0 0 1 13.5 21h-1A6.5 6.5 0 0 1 6 14.5V12a1.5 1.5 0 0 1 3 0v1" /></svg>인사</button>
+      <button type="button" data-gesture="celebrate"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 3 1.1 3.4h3.6l-2.9 2.1 1.1 3.5-2.9-2.2-2.9 2.2 1.1-3.5-2.9-2.1h3.6Z" /><path d="M5 16v4M3 18h4M19 15v5M17 17h4" /></svg>축하</button>
+      <button type="button" data-gesture="scan"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="5.5" /><path d="m15 15 5 5M5 3v3M3 5h3M19 3v3M21 5h-3" /></svg>둘러보기</button>
+    </section>
+
+    <section class="widget-edit" aria-labelledby="widget-edit-title">
+      <div class="widget-section-title"><span id="widget-edit-title">가구 배치</span><span id="selectedObjectLabel">가구를 선택하세요</span></div>
+      <div class="widget-nudge-row">
+        <button type="button" data-nudge="-x" aria-label="가구를 왼쪽으로 이동"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m14 6-6 6 6 6M8 12h11" /></svg></button>
+        <button type="button" data-nudge="-y" aria-label="가구를 위로 이동"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 14 6-6 6 6M12 8v11" /></svg></button>
+        <button type="button" data-nudge="+y" aria-label="가구를 아래로 이동"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 10 6 6 6-6M12 16V5" /></svg></button>
+        <button type="button" data-nudge="+x" aria-label="가구를 오른쪽으로 이동"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m10 6 6 6-6 6M16 12H5" /></svg></button>
+        <button id="resetRoom" type="button" aria-label="방 배치 처음으로">처음으로</button>
+      </div>
+    </section>
+  </main>
+  <dialog id="roomModal" aria-labelledby="roomModalTitle" aria-describedby="roomModalDescription">
+    <div class="room-modal-shell">
+      <header class="room-modal-header"><div><p class="section-kicker" id="roomModalEyebrow">ROOM TOOLS</p><h2 id="roomModalTitle">방 도구</h2><p id="roomModalDescription">방 안의 기록과 소비 흐름을 한눈에 확인해 보세요.</p></div><button class="modal-close" id="closeRoomModal" type="button" aria-label="방 도구 닫기"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" /></svg></button></header>
+      <div class="room-modal-body">
+        <section id="calendarPanel" class="room-tool-panel" aria-label="일정 달력"><div class="modal-panel-heading"><div><p class="section-kicker">CALENDAR</p><h3>일정 메모</h3></div><svg class="modal-panel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5.5" width="16" height="15" rx="2" /><path d="M8 3.5v4M16 3.5v4M4 10h16" /></svg></div><div class="calendar-nav" aria-label="달력 월 이동"><button class="icon-button" id="prevMonth" type="button" aria-label="이전 달"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m14 6-6 6 6 6" /></svg></button><strong id="calendarMonthLabel">2026년 8월</strong><button class="icon-button" id="nextMonth" type="button" aria-label="다음 달"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m10 6 6 6-6 6" /></svg></button></div><div id="calendarGrid" class="calendar-grid" role="grid" aria-label="달력 날짜"><span role="columnheader">일</span><span role="columnheader">월</span><span role="columnheader">화</span><span role="columnheader">수</span><span role="columnheader">목</span><span role="columnheader">금</span><span role="columnheader">토</span></div><p class="calendar-selected" id="calendarSelectedDate">날짜를 선택하면 메모를 남길 수 있어요.</p><label class="modal-field" for="calendarMemo"><span>메모</span><textarea id="calendarMemo" rows="3" maxlength="240" placeholder="오늘의 일정이나 기억할 일을 적어 보세요."></textarea></label><div class="modal-save-row"><button class="primary-button" id="saveCalendarMemo" type="button">메모 저장</button><span id="calendarSaveStatus" role="status" aria-live="polite"></span></div></section>
+        <section id="budgetPanel" class="room-tool-panel" aria-label="소비 예산" hidden><div class="modal-panel-heading"><div><p class="section-kicker">BUDGET</p><h3>이번 달 소비</h3></div><svg class="modal-panel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v12H4zM4 10.5h16M7 7.5V5h10v2.5M8 15h3M15 15h2" /></svg></div><div id="budgetSummary" class="budget-summary"><span>전체 예산</span><strong>₩1,200,000</strong><small>현재 사용률 <b>62%</b></small></div><div id="budgetCategoryList" class="budget-category-list"><div class="budget-row"><div><strong>식비</strong><span>₩320,000 / ₩450,000</span></div><progress max="100" value="71" aria-label="식비 사용률 71%"></progress><b>71%</b></div><div class="budget-row"><div><strong>교통</strong><span>₩82,000 / ₩160,000</span></div><progress max="100" value="51" aria-label="교통 사용률 51%"></progress><b>51%</b></div><div class="budget-row"><div><strong>생활</strong><span>₩210,000 / ₩280,000</span></div><progress max="100" value="75" aria-label="생활 사용률 75%"></progress><b>75%</b></div><div class="budget-row"><div><strong>취미</strong><span>₩128,000 / ₩180,000</span></div><progress max="100" value="71" aria-label="취미 사용률 71%"></progress><b>71%</b></div></div></section>
+      </div>
+    </div>
+  </dialog>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
